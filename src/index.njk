@@ -8,25 +8,37 @@ eleventyExcludeFromCollections: true
 <div class="default-wrapper">
   <article class="page block-canvas">
     <div class="block-flow">
-      <p>
-        <mark>This is a book of daily meditations on the Word of God</mark>,
-        written by <a href="{{ site.author.path }}">{{ site.author.name }}</a>. Each entry is a sitting with Scripture —
-        a verse, a thought, a prayer — kept here so it can be returned to.
+      <p class="lede">
+        Daily meditations on the Word of God, written by
+        <a href="{{ site.author.path }}">{{ site.author.name }}</a>.
+      </p>
+      <p class="lede-follow">
+        Each entry is a sitting with Scripture — a verse, a thought, a prayer — kept here so it can be returned to.
       </p>
 
       {% if latest.length %}
         {%- set item = latest[0] -%}
-        <h2>{% include "partials/icon-book.njk" %}Today’s meditation</h2>
-        <article class="entry-card featured">
-          <aside class="meta">
+        <article class="today-leaf">
+          <p class="kicker">
+            <span>Today’s meditation</span>
+            <span aria-hidden="true">·</span>
             <time class="dt-published" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
             {% if item.data.passage %}
-              <span aria-hidden="true">•</span>
+              <span aria-hidden="true">·</span>
               <span>{{ item.data.passage }}</span>
             {% endif %}
-          </aside>
-          <h3><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
-          <p>By <a href="{{ site.author.path }}">{{ site.author.name }}</a>. {{ item.data.description or item.templateContent | excerpt(200) }}</p>
+          </p>
+          <h2><a href="{{ item.url }}">{{ item.data.title }}</a></h2>
+          {% if item.data.scripture %}
+            <blockquote class="scripture scripture--compact">
+              <p>{{ item.data.scripture }}</p>
+              {% if item.data.citation or item.data.passage %}
+                <cite>{{ item.data.citation or item.data.passage }}</cite>
+              {% endif %}
+            </blockquote>
+          {% endif %}
+          <p class="today-excerpt">{{ item.data.description or item.templateContent | excerpt(220) }}</p>
+          <a class="text-link" href="{{ item.url }}">Continue reading</a>
         </article>
       {% else %}
         <p class="empty-state">The first meditation is being prepared. Check back soon.</p>
@@ -36,14 +48,14 @@ eleventyExcludeFromCollections: true
       {% include "partials/rss-banner.njk" %}
 
       {% if recent.length %}
-        <h2 id="recent">Recent meditations</h2>
+        <h2 id="recent" class="section-title">Recent meditations</h2>
         <div class="h-feed">
           {%- for item in recent -%}
             <article class="recent-activity h-entry">
               <aside class="meta">
                 <time class="dt-published" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
                 {% if item.data.passage %}
-                  <span aria-hidden="true">•</span>
+                  <span aria-hidden="true">·</span>
                   <span>{{ item.data.passage }}</span>
                 {% endif %}
               </aside>
@@ -60,7 +72,7 @@ eleventyExcludeFromCollections: true
             </article>
           {%- endfor -%}
         </div>
-        <p><a href="/meditations/">Browse all meditations</a></p>
+        <p><a class="text-link" href="/meditations/">Browse all meditations</a></p>
       {% endif %}
     </div>
   </article>
