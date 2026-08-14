@@ -28,7 +28,7 @@ layout: layouts/base.njk
         {% if scripture %}
           <blockquote class="scripture">
             <p>{{ scripture }}</p>
-            {% if passage %}<cite>{{ passage }}</cite>{% endif %}
+            {% if citation or passage %}<cite>{{ citation or passage }}</cite>{% endif %}
           </blockquote>
         {% elif passage %}
           <p class="passage-ref">{{ passage }}</p>

@@ -6,8 +6,8 @@ scripture: "But his delight is in the law of the Lord, and on his law he meditat
 tags:
   - beginning
   - psalms
-featured: true
-date: 2026-08-14
+featured: false
+date: 2026-08-14T08:00:00Z
 ---
 
 This book is a place to keep what I find when I sit with Scripture.
