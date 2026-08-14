@@ -39,11 +39,13 @@ are shown above the body on the entry page.
 
 The file date becomes the published date. The URL will be `/meditations/YYYY/short-title/`.
 
-## Going live
+## Going live (Vercel)
 
-The build is static HTML. Two common hosts:
+The site is a static Eleventy build. `vercel.json` tells Vercel to run `npm run build` and publish `_site`.
 
-1. **Netlify** — connect this repository. `netlify.toml` already sets the build command (`npm run build`) and the publish directory (`_site`). Add the custom domain `bookofbrendan.blog` in the Netlify domain settings, then point the domain’s DNS to Netlify.
-2. **GitHub Pages** — `src/CNAME` already contains `bookofbrendan.blog`. Serve the `_site` output, or add a Pages deploy job after the existing build workflow.
+1. Import this GitHub repository at [vercel.com/new](https://vercel.com/new).
+2. Leave the framework as **Eleventy**. The build command, output directory, and Node 22 version are already set in the repo.
+3. Deploy. Each push to the production branch (and each pull request) will get a Vercel URL.
+4. When `bookofbrendan.blog` is registered, add it under the Vercel project’s **Domains** settings, then point the domain’s DNS to Vercel.
 
-Until the domain is purchased and DNS is attached, a Netlify or GitHub preview URL is enough to read the book.
+Local preview remains `npm start` → [http://localhost:8080](http://localhost:8080). `npx vercel` also works if you want a CLI deploy from this folder.
