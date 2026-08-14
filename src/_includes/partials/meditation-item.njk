@@ -1,0 +1,26 @@
+<article class="h-entry post-item{% if item.data.featured %} featured{% endif %}">
+  <aside class="meta">
+    {% if item.data.featured %}
+      {% include "partials/icon-star.njk" %}
+      <span class="visually-hidden">Featured</span>
+    {% endif %}
+    <time class="dt-published" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
+    {% if item.data.passage %}
+      <span aria-hidden="true">•</span>
+      <span>{{ item.data.passage }}</span>
+    {% endif %}
+  </aside>
+  <h3><a href="{{ item.url }}" class="p-name u-url">{{ item.data.title }}</a></h3>
+  {% if item.data.tags %}
+    <div class="badges">
+      {%- for tag in item.data.tags -%}
+        {%- if tag != "meditation" -%}
+          <a href="/tags/{{ tag | slugify }}/" class="badge p-category">{{ tag }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {% endif %}
+  <div class="post-summary p-summary">
+    <p>{{ item.data.description or item.templateContent | excerpt(220) }}</p>
+  </div>
+</article>

@@ -1,0 +1,21 @@
+---
+layout: layouts/page.njk
+pagination:
+  data: collections.tagList
+  size: 1
+  alias: tag
+permalink: /tags/{{ tag.slug }}/
+eleventyComputed:
+  title: "{{ tag.name }}"
+  description: "Meditations tagged {{ tag.name }}."
+eleventyExcludeFromCollections: true
+---
+<p>{{ tag.count }} meditation{% if tag.count != 1 %}s{% endif %} tagged <strong>{{ tag.name }}</strong>. <a href="/tags/">Browse all tags</a>.</p>
+
+<div class="h-feed post-list">
+  {%- for item in collections.meditations -%}
+    {%- if tag.name in item.data.tags -%}
+      {% include "partials/meditation-item.njk" %}
+    {%- endif -%}
+  {%- endfor -%}
+</div>

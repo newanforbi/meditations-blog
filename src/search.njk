@@ -1,0 +1,16 @@
+---
+layout: layouts/page.njk
+title: Search
+description: Search the Book of Brendan.
+permalink: /search/
+extra_js: /assets/js/search.js
+eleventyExcludeFromCollections: true
+---
+<p>Search titles, passages, and the text of every meditation.</p>
+
+<form class="search-form" data-search-form role="search">
+  <label class="visually-hidden" for="q">Search meditations</label>
+  <input id="q" name="q" type="search" placeholder="A word, a passage, a theme…" data-search-input autocomplete="off">
+</form>
+<p class="search-count" data-search-count>Start typing to search meditations.</p>
+<div class="h-feed" data-search-results></div>

@@ -1,0 +1,67 @@
+---
+layout: layouts/base.njk
+permalink: /
+eleventyExcludeFromCollections: true
+---
+{%- set latest = collections.meditations | head(1) -%}
+{%- set recent = collections.meditations | head(12) -%}
+<div class="default-wrapper">
+  <article class="page block-canvas">
+    <div class="block-flow">
+      <p>
+        <mark>This is a book of daily meditations on the Word of God</mark>,
+        written by {{ site.author.name }}. Each entry is a sitting with Scripture —
+        a verse, a thought, a prayer — kept here so it can be returned to.
+      </p>
+
+      {% if latest.length %}
+        {%- set item = latest[0] -%}
+        <h2>{% include "partials/icon-book.njk" %}Today’s meditation</h2>
+        <article class="entry-card featured">
+          <aside class="meta">
+            <time class="dt-published" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
+            {% if item.data.passage %}
+              <span aria-hidden="true">•</span>
+              <span>{{ item.data.passage }}</span>
+            {% endif %}
+          </aside>
+          <h3><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
+          <p>{{ item.data.description or item.templateContent | excerpt(200) }}</p>
+        </article>
+      {% else %}
+        <p class="empty-state">The first meditation is being prepared. Check back soon.</p>
+      {% endif %}
+
+      {% set message = "Subscribe to the daily meditations feed" %}
+      {% include "partials/rss-banner.njk" %}
+
+      {% if recent.length %}
+        <h2 id="recent">Recent meditations</h2>
+        <div class="h-feed">
+          {%- for item in recent -%}
+            <article class="recent-activity h-entry">
+              <aside class="meta">
+                <time class="dt-published" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
+                {% if item.data.passage %}
+                  <span aria-hidden="true">•</span>
+                  <span>{{ item.data.passage }}</span>
+                {% endif %}
+              </aside>
+              <h3><a href="{{ item.url }}" class="p-name u-url">{{ item.data.title }}</a></h3>
+              {% if item.data.tags %}
+                <div class="badges">
+                  {%- for tag in item.data.tags -%}
+                    {%- if tag != "meditation" -%}
+                      <a href="/tags/{{ tag | slugify }}/" class="badge p-category">{{ tag }}</a>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              {% endif %}
+            </article>
+          {%- endfor -%}
+        </div>
+        <p><a href="/meditations/">Browse all meditations</a></p>
+      {% endif %}
+    </div>
+  </article>
+</div>

@@ -1,0 +1,13 @@
+{
+  "title": "Book of Brendan Ngwa Nforbi",
+  "shortTitle": "Book of Brendan",
+  "description": "Daily meditations on the Word of God.",
+  "url": "https://bookofbrendan.blog",
+  "lang": "en",
+  "wordmark": "~/bookofbrendan.blog",
+  "author": {
+    "name": "Brendan Ngwa Nforbi"
+  },
+  "themeColorLight": "#f3f1ec",
+  "themeColorDark": "#161410"
+}

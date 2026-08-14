@@ -1,0 +1,72 @@
+---
+layout: layouts/base.njk
+---
+{%- set related = collections.meditations | relatedMeditations(page.url, tags, 3) -%}
+<div class="default-wrapper">
+  <article class="page entity-page block-canvas h-entry">
+    <div class="block-flow">
+      <aside class="meta">
+        <time class="dt-published" datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+        <span aria-hidden="true">•</span>
+        <span>{{ content | readingTime }} min read</span>
+      </aside>
+      <h1 class="page-title p-name">{{ title }}</h1>
+      {% if tags %}
+        <div class="badges">
+          {%- for tag in tags -%}
+            {%- if tag != "meditation" -%}
+              <a href="/tags/{{ tag | slugify }}/" class="badge p-category">{{ tag }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {% endif %}
+      <a class="u-url visually-hidden" href="{{ page.url }}">{{ page.url }}</a>
+    </div>
+
+    <div class="e-content block-subcanvas">
+      <div class="block-flow">
+        {% if scripture %}
+          <blockquote class="scripture">
+            <p>{{ scripture }}</p>
+            {% if citation or passage %}<cite>{{ citation or passage }}</cite>{% endif %}
+          </blockquote>
+        {% elif passage %}
+          <p class="passage-ref">{{ passage }}</p>
+        {% endif %}
+        {{ content | safe }}
+      </div>
+    </div>
+
+    <div class="block-flow">
+      <nav class="post-nav" aria-label="Meditation sequence">
+        {%- set newerPost = collections.meditations | getPreviousCollectionItem -%}
+        {%- set olderPost = collections.meditations | getNextCollectionItem -%}
+        {% if olderPost %}
+          <a class="post-nav-link" href="{{ olderPost.url }}">
+            <span class="post-nav-label">Older</span>
+            <span>{{ olderPost.data.title }}</span>
+          </a>
+        {% else %}
+          <span></span>
+        {% endif %}
+        {% if newerPost %}
+          <a class="post-nav-link post-nav-link--next" href="{{ newerPost.url }}">
+            <span class="post-nav-label">Newer</span>
+            <span>{{ newerPost.data.title }}</span>
+          </a>
+        {% endif %}
+      </nav>
+
+      {% if related.length %}
+        <section class="block-related-posts">
+          <h2>Related meditations</h2>
+          <div class="entry-card-grid entry-card-grid--three">
+            {%- for item in related -%}
+              {% include "partials/entry-card.njk" %}
+            {%- endfor -%}
+          </div>
+        </section>
+      {% endif %}
+    </div>
+  </article>
+</div>
