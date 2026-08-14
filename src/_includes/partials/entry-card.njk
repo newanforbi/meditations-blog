@@ -1,6 +1,8 @@
 <article class="entry-card">
   <aside class="meta">
     <time class="dt-published" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
+    <span aria-hidden="true">•</span>
+    <a href="{{ site.author.path }}">{{ site.author.name }}</a>
   </aside>
   <h3><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
   <p>{{ item.data.description or item.templateContent | excerpt }}</p>

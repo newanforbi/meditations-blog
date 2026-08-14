@@ -4,13 +4,16 @@ eleventyExcludeFromCollections: true
 layout: false
 ---
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>{{ site.title }}</title>
     <link>{{ site.url }}/</link>
     <atom:link href="{{ '/feed.xml' | absoluteUrl(site.url) }}" rel="self" type="application/rss+xml"/>
     <description>{{ site.description }}</description>
     <language>{{ site.lang }}</language>
+    <copyright>© {{ site.author.name }}</copyright>
+    <managingEditor>{{ site.author.name }}</managingEditor>
+    <webMaster>{{ site.author.name }}</webMaster>
     {%- if collections.meditations.length %}
     <lastBuildDate>{{ collections.meditations[0].date | dateToRfc822 }}</lastBuildDate>
     {%- endif %}
@@ -20,9 +23,11 @@ layout: false
       <link>{{ post.url | absoluteUrl(site.url) }}</link>
       <guid>{{ post.url | absoluteUrl(site.url) }}</guid>
       <pubDate>{{ post.date | dateToRfc822 }}</pubDate>
+      <author>{{ site.author.name }}</author>
+      <dc:creator>{{ site.author.name }}</dc:creator>
       {%- if post.data.passage %}<category>{{ post.data.passage }}</category>{%- endif %}
       <description><![CDATA[{{ post.data.description or post.templateContent | excerpt(240) }}]]></description>
-      <content:encoded><![CDATA[{% if post.data.scripture %}<blockquote><p>{{ post.data.scripture }}</p>{% if post.data.passage %}<cite>{{ post.data.passage }}</cite>{% endif %}</blockquote>{% endif %}{{ post.templateContent | safe }}]]></content:encoded>
+      <content:encoded><![CDATA[<p>By <a href="{{ site.author.path | absoluteUrl(site.url) }}">{{ site.author.name }}</a></p>{% if post.data.scripture %}<blockquote><p>{{ post.data.scripture }}</p>{% if post.data.passage %}<cite>{{ post.data.passage }}</cite>{% endif %}</blockquote>{% endif %}{{ post.templateContent | safe }}]]></content:encoded>
     </item>
     {%- endfor %}
   </channel>

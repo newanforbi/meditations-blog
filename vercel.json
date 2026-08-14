@@ -20,12 +20,23 @@
       "headers": [
         { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" }
       ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" }
+      ]
     }
   ],
   "redirects": [
     {
       "source": "/posts/:path*",
       "destination": "/meditations/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/author",
+      "destination": "/brendan-ngwa-nforbi/",
       "permanent": true
     }
   ]

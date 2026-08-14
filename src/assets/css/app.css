@@ -4,6 +4,22 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: Archivo;
+  src: url("/assets/fonts/archivo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/assets/fonts/ibm-plex-mono.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light dark;
   --gray-100: oklch(0.97 0.008 85);
@@ -448,6 +464,21 @@ aside.meta time {
 
 aside.meta:has(+ *) + * {
   margin-block-start: 0;
+}
+
+aside.meta a {
+  color: inherit;
+}
+
+.byline {
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.byline:hover,
+.byline:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: var(--underline-offset-hover);
 }
 
 aside.meta svg {

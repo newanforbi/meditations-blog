@@ -1,6 +1,7 @@
 import rssPlugin from "@11ty/eleventy-plugin-rss";
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
+import { buildSchema } from "./lib/schema.js";
 
 const MEDITATION_TAG = "meditation";
 
@@ -39,7 +40,7 @@ export default function (eleventyConfig) {
     markdownIt({
       html: true,
       breaks: false,
-      linkify: true,
+      linkify: false,
       typographer: true,
     }).use(markdownItAnchor, {
       permalink: markdownItAnchor.permalink.headerLink({
@@ -136,6 +137,13 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
+  eleventyConfig.addFilter("buildSchema", (pageData, site, meditations) =>
+    buildSchema({
+      ...pageData,
+      site,
+      meditations: meditations || [],
+    }),
+  );
   eleventyConfig.addFilter("contentTags", (tags = []) =>
     (tags || []).filter((tag) => tag !== MEDITATION_TAG),
   );

@@ -9,7 +9,10 @@ layout: false
   "home_page_url": {{ site.url | json | safe }},
   "feed_url": {{ "/feed.json" | absoluteUrl(site.url) | json | safe }},
   "description": {{ site.description | json | safe }},
-  "authors": [{ "name": {{ site.author.name | json | safe }} }],
+  "authors": [{
+    "name": {{ site.author.name | json | safe }},
+    "url": {{ site.author.path | absoluteUrl(site.url) | json | safe }}
+  }],
   "items": [
     {%- for post in collections.meditations | head(50) %}
     {
@@ -19,6 +22,10 @@ layout: false
       "date_published": {{ post.date | isoDate | json | safe }},
       "summary": {{ (post.data.description or post.templateContent | excerpt(240)) | json | safe }},
       "content_html": {{ post.templateContent | json | safe }},
+      "authors": [{
+        "name": {{ site.author.name | json | safe }},
+        "url": {{ site.author.path | absoluteUrl(site.url) | json | safe }}
+      }],
       "tags": {{ post.data.tags | contentTags | json | safe }}
     }{% if not loop.last %},{% endif %}
     {%- endfor %}

@@ -10,7 +10,7 @@ eleventyExcludeFromCollections: true
     <div class="block-flow">
       <p>
         <mark>This is a book of daily meditations on the Word of God</mark>,
-        written by {{ site.author.name }}. Each entry is a sitting with Scripture —
+        written by <a href="{{ site.author.path }}">{{ site.author.name }}</a>. Each entry is a sitting with Scripture —
         a verse, a thought, a prayer — kept here so it can be returned to.
       </p>
 
@@ -26,7 +26,7 @@ eleventyExcludeFromCollections: true
             {% endif %}
           </aside>
           <h3><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
-          <p>{{ item.data.description or item.templateContent | excerpt(200) }}</p>
+          <p>By <a href="{{ site.author.path }}">{{ site.author.name }}</a>. {{ item.data.description or item.templateContent | excerpt(200) }}</p>
         </article>
       {% else %}
         <p class="empty-state">The first meditation is being prepared. Check back soon.</p>

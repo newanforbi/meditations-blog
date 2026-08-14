@@ -5,6 +5,8 @@
       <span class="visually-hidden">Featured</span>
     {% endif %}
     <time class="dt-published" datetime="{{ item.date | htmlDateString }}">{{ item.date | readableDate }}</time>
+    <span aria-hidden="true">•</span>
+    <a class="p-author h-card" href="{{ site.author.path }}"><span class="p-name">{{ site.author.name }}</span></a>
     {% if item.data.passage %}
       <span aria-hidden="true">•</span>
       <span>{{ item.data.passage }}</span>

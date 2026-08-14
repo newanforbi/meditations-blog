@@ -1,6 +1,6 @@
 <header class="site-header h-card">
   <div class="site-header-inner">
-    <a class="p-name u-url visually-hidden" href="/" aria-hidden="true" tabindex="-1">{{ site.author.name }}</a>
+    <a class="p-name u-url visually-hidden" href="{{ site.author.path }}">{{ site.author.name }}</a>
     {% if page.url == "/" %}
       <h1 class="site-title">{% include "partials/wordmark.njk" %}</h1>
     {% else %}
