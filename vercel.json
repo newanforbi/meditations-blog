@@ -30,6 +30,12 @@
   ],
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "bookofbrendan.blog" }],
+      "destination": "https://www.bookofbrendan.blog/:path*",
+      "permanent": true
+    },
+    {
       "source": "/posts/:path*",
       "destination": "/meditations/:path*",
       "permanent": true

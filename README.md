@@ -1,6 +1,6 @@
 # Book of Brendan Ngwa Nforbi
 
-Daily meditations on the Word of God. Built with [Eleventy](https://www.11ty.dev/). The site is meant to live at [bookofbrendan.blog](https://bookofbrendan.blog).
+Daily meditations on the Word of God. Built with [Eleventy](https://www.11ty.dev/). The site is meant to live at [www.bookofbrendan.blog](https://www.bookofbrendan.blog).
 
 ## Local development
 
@@ -46,8 +46,8 @@ The site is a static Eleventy build. `vercel.json` tells Vercel to run `npm run 
 1. Import this GitHub repository at [vercel.com/new](https://vercel.com/new).
 2. Leave the framework as **Eleventy**. The build command, output directory, and Node 22 version are already set in the repo.
 3. Deploy. Each push to the production branch (and each pull request) will get a Vercel URL.
-4. When `bookofbrendan.blog` is registered, add it under the Vercel project’s **Domains** settings, then point the domain’s DNS to Vercel.
+4. Add **www.bookofbrendan.blog** as the primary domain and **bookofbrendan.blog** as a redirect to it. Nameservers should stay on Vercel (`ns1.vercel-dns.com`, `ns2.vercel-dns.com`). If the Domains page shows **Proxy Status Unknown**, click **Refresh** on each custom domain. That badge is Vercel’s probe, not a second host. Do not put Cloudflare (or any other proxy) in front.
 
-After the domain is live, submit `https://bookofbrendan.blog/sitemap.xml` in [Google Search Console](https://search.google.com/search-console). Google cannot be forced to index; the site is built so every page names **Brendan Ngwa Nforbi** as author, with a canonical person URL at `/brendan-ngwa-nforbi/`, Schema.org Person/BlogPosting markup, and an RSS feed. Search Console is what asks Google to crawl it.
+After the domain is live, submit `https://www.bookofbrendan.blog/sitemap.xml` in [Google Search Console](https://search.google.com/search-console). Google cannot be forced to index; the site is built so every page names **Brendan Ngwa Nforbi** as author, with a canonical person URL at `/brendan-ngwa-nforbi/`, Schema.org Person/BlogPosting markup, and an RSS feed. Search Console is what asks Google to crawl it.
 
 Local preview remains `npm start` → [http://localhost:8080](http://localhost:8080). `npx vercel` also works if you want a CLI deploy from this folder.
