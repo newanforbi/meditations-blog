@@ -1,12 +1,18 @@
 {
   "title": "Book of Brendan Ngwa Nforbi",
   "shortTitle": "Book of Brendan",
-  "description": "Daily meditations on the Word of God.",
+  "description": "Daily meditations on the Word of God, written by Brendan Ngwa Nforbi.",
   "url": "https://bookofbrendan.blog",
   "lang": "en",
+  "locale": "en_US",
   "wordmark": "~/bookofbrendan.blog",
   "author": {
-    "name": "Brendan Ngwa Nforbi"
+    "name": "Brendan Ngwa Nforbi",
+    "givenName": "Brendan",
+    "additionalName": "Ngwa",
+    "familyName": "Nforbi",
+    "path": "/brendan-ngwa-nforbi/",
+    "description": "Brendan Ngwa Nforbi writes daily meditations on the Word of God at bookofbrendan.blog."
   },
   "themeColorLight": "#f3f1ec",
   "themeColorDark": "#161410"

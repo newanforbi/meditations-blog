@@ -48,4 +48,6 @@ The site is a static Eleventy build. `vercel.json` tells Vercel to run `npm run 
 3. Deploy. Each push to the production branch (and each pull request) will get a Vercel URL.
 4. When `bookofbrendan.blog` is registered, add it under the Vercel project’s **Domains** settings, then point the domain’s DNS to Vercel.
 
+After the domain is live, submit `https://bookofbrendan.blog/sitemap.xml` in [Google Search Console](https://search.google.com/search-console). Google cannot be forced to index; the site is built so every page names **Brendan Ngwa Nforbi** as author, with a canonical person URL at `/brendan-ngwa-nforbi/`, Schema.org Person/BlogPosting markup, and an RSS feed. Search Console is what asks Google to crawl it.
+
 Local preview remains `npm start` → [http://localhost:8080](http://localhost:8080). `npx vercel` also works if you want a CLI deploy from this folder.

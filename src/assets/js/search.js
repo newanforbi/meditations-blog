@@ -26,6 +26,8 @@ if (form && input && results) {
         <article class="h-entry post-item">
           <aside class="meta">
             <time datetime="${item.date}">${item.readableDate}</time>
+            <span aria-hidden="true">•</span>
+            <a href="/brendan-ngwa-nforbi/">Brendan Ngwa Nforbi</a>
             ${item.passage ? `<span aria-hidden="true">•</span><span>${item.passage}</span>` : ""}
           </aside>
           <h3><a href="${item.url}">${item.title}</a></h3>
@@ -48,7 +50,18 @@ if (form && input && results) {
     });
   };
 
-  const run = () => render(search(input.value), input.value.trim());
+  const params = new URLSearchParams(window.location.search);
+  const initial = params.get("q") || "";
+  if (initial) input.value = initial;
+
+  const run = () => {
+    const query = input.value.trim();
+    const next = new URL(window.location.href);
+    if (query) next.searchParams.set("q", query);
+    else next.searchParams.delete("q");
+    window.history.replaceState({}, "", next);
+    render(search(input.value), query);
+  };
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     run();

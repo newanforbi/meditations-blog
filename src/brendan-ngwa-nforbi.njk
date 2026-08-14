@@ -1,0 +1,22 @@
+---
+layout: layouts/page.njk
+title: Brendan Ngwa Nforbi
+description: Brendan Ngwa Nforbi writes daily meditations on the Word of God at bookofbrendan.blog.
+permalink: /brendan-ngwa-nforbi/
+eleventyExcludeFromCollections: true
+---
+<p><mark>Brendan Ngwa Nforbi</mark> writes the Book of Brendan: a daily book of meditations on the Word of God, published at bookofbrendan.blog.</p>
+
+<p>Every meditation on this site is written by Brendan Ngwa Nforbi. The pages, the dates, and the Scripture they sit with belong to this book and to this name.</p>
+
+<p>These are not sermons. They are notes from the chair: short, dated, and meant to be lived. If a meditation helps you pray, that is enough.</p>
+
+{% if collections.meditations.length %}
+  <h2>Writings by Brendan Ngwa Nforbi</h2>
+  <p>{{ collections.meditations.length }} meditation{% if collections.meditations.length != 1 %}s{% endif %} on bookofbrendan.blog.</p>
+  <div class="h-feed post-list">
+    {%- for item in collections.meditations -%}
+      {% include "partials/meditation-item.njk" %}
+    {%- endfor -%}
+  </div>
+{% endif %}
