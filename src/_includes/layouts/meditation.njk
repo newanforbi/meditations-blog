@@ -6,11 +6,17 @@ layout: layouts/base.njk
   <article class="page entity-page block-canvas h-entry">
     <div class="block-flow">
       <aside class="meta">
-        <time class="dt-published" datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
-        <span aria-hidden="true">•</span>
-        {% include "partials/byline.njk" %}
-        <span aria-hidden="true">•</span>
-        <span>{{ content | readingTime }} min read</span>
+        <span class="kicker kicker--inline">
+          <time class="dt-published" datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>
+          {% if passage %}
+            <span aria-hidden="true">·</span>
+            <span>{{ passage }}</span>
+          {% endif %}
+          <span aria-hidden="true">·</span>
+          {% include "partials/byline.njk" %}
+          <span aria-hidden="true">·</span>
+          <span>{{ content | readingTime }} min read</span>
+        </span>
       </aside>
       <h1 class="page-title p-name">{{ title }}</h1>
       {% if tags %}
