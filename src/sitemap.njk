@@ -12,7 +12,6 @@ layout: false
     { url: "/archive/", changefreq: "weekly", priority: "0.7" },
     { url: "/about/", changefreq: "monthly", priority: "0.8" },
     { url: "/tags/", changefreq: "weekly", priority: "0.5" },
-    { url: "/search/", changefreq: "monthly", priority: "0.4" },
     { url: "/colophon/", changefreq: "yearly", priority: "0.3" }
   ] -%}
   {%- set latest = collections.meditations[0].date if collections.meditations.length else none -%}

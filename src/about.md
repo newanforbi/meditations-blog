@@ -1,7 +1,7 @@
 ---
 layout: layouts/page.njk
-title: About
-description: About Brendan Ngwa Nforbi and the Book of Brendan.
+title: About Brendan Ngwa Nforbi
+description: Brendan Ngwa Nforbi writes daily meditations on the Word of God at www.bookofbrendan.blog.
 permalink: /about/
 eleventyExcludeFromCollections: true
 ---
