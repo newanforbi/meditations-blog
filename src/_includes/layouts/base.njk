@@ -4,20 +4,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {%- set isMeditation = tags and "meditation" in tags -%}
+    {%- set isAuthorPage = page.url == site.author.path -%}
+    {%- set isHome = page.url == "/" -%}
+    {%- set isSearch = page.url == "/search/" -%}
     {%- set pageTitle = title or site.title -%}
-    {%- if isMeditation -%}
-      {%- set documentTitle = title ~ " • " ~ site.author.name -%}
-    {%- elif title -%}
-      {%- set documentTitle = title ~ " • " ~ site.title -%}
+    {%- if isHome or isAuthorPage -%}
+      {%- set documentTitle = site.author.name ~ " — Daily meditations on the Word of God" -%}
+    {%- elif isMeditation or title -%}
+      {%- set documentTitle = (title or site.title) ~ " • " ~ site.author.name -%}
     {%- else -%}
-      {%- set documentTitle = site.title ~ " — Daily meditations by " ~ site.author.name -%}
+      {%- set documentTitle = site.author.name ~ " — Daily meditations on the Word of God" -%}
     {%- endif -%}
     <title>{{ documentTitle }}</title>
     <meta name="description" content="{{ description or excerpt or site.description }}">
     <meta name="author" content="{{ site.author.name }}">
     <meta name="copyright" content="{{ site.author.name }}">
-    <meta name="robots" content="{% if page.url == '/404.html' %}noindex, follow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}">
-    <meta name="googlebot" content="index, follow">
+    {%- if site.googleSiteVerification %}
+    <meta name="google-site-verification" content="{{ site.googleSiteVerification }}">
+    {%- endif %}
+    <meta name="robots" content="{% if page.url == '/404.html' or isSearch %}noindex, follow{% else %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endif %}">
+    <meta name="googlebot" content="{% if page.url == '/404.html' or isSearch %}noindex, follow{% else %}index, follow{% endif %}">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="{{ site.themeColorLight }}">
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="{{ site.themeColorDark }}">
@@ -34,7 +40,7 @@
     <link rel="stylesheet" href="/assets/css/app.css">
     <meta property="og:locale" content="{{ site.locale }}">
     <meta property="og:site_name" content="{{ site.title }}">
-    <meta property="og:title" content="{{ pageTitle }}">
+    <meta property="og:title" content="{{ documentTitle }}">
     <meta property="og:description" content="{{ description or excerpt or site.description }}">
     <meta property="og:type" content="{% if isMeditation %}article{% elif page.url == site.author.path %}profile{% else %}website{% endif %}">
     <meta property="og:url" content="{{ page.url | absoluteUrl(site.url) }}">
