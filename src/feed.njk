@@ -21,13 +21,13 @@ layout: false
     <item>
       <title>{{ post.data.title }}</title>
       <link>{{ post.url | absoluteUrl(site.url) }}</link>
-      <guid>{{ post.url | absoluteUrl(site.url) }}</guid>
+      <guid isPermaLink="true">{{ post.url | absoluteUrl(site.url) }}</guid>
       <pubDate>{{ post.date | dateToRfc822 }}</pubDate>
       <author>{{ site.author.name }}</author>
       <dc:creator>{{ site.author.name }}</dc:creator>
       {%- if post.data.passage %}<category>{{ post.data.passage }}</category>{%- endif %}
       <description><![CDATA[{{ post.data.description or post.templateContent | excerpt(240) }}]]></description>
-      <content:encoded><![CDATA[<p>By <a href="{{ site.author.path | absoluteUrl(site.url) }}">{{ site.author.name }}</a></p>{% if post.data.scripture %}<blockquote><p>{{ post.data.scripture }}</p>{% if post.data.passage %}<cite>{{ post.data.passage }}</cite>{% endif %}</blockquote>{% endif %}{{ post.templateContent | safe }}]]></content:encoded>
+      <content:encoded><![CDATA[{{ post | feedItemHtml(site) | safe }}]]></content:encoded>
     </item>
     {%- endfor %}
   </channel>

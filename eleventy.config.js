@@ -113,6 +113,17 @@ export default function (eleventyConfig) {
     }
   });
 
+  eleventyConfig.addFilter("feedItemHtml", (post, site) => {
+    const canonicalUrl = new URL(post.url, site.url).toString();
+    const authorUrl = new URL(site.author.path, site.url).toString();
+    const cite = post.data.citation || post.data.passage;
+    const scripture = post.data.scripture
+      ? `<blockquote><p>${post.data.scripture}</p>${cite ? `<cite>${cite}</cite>` : ""}</blockquote>`
+      : "";
+    const note = `<p>By <a href="${authorUrl}">${site.author.name}</a>. Originally published at <a href="${canonicalUrl}">${canonicalUrl}</a>.</p>`;
+    return `${note}${scripture}${post.templateContent || ""}`;
+  });
+
   eleventyConfig.addFilter("relatedMeditations", (collection, currentUrl, tags = [], limit = 3) => {
     const wanted = new Set((tags || []).filter((tag) => tag !== MEDITATION_TAG));
     return (collection || [])

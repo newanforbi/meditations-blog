@@ -21,7 +21,7 @@ layout: false
       "title": {{ post.data.title | json | safe }},
       "date_published": {{ post.date | isoDate | json | safe }},
       "summary": {{ (post.data.description or post.templateContent | excerpt(240)) | json | safe }},
-      "content_html": {{ post.templateContent | json | safe }},
+      "content_html": {{ post | feedItemHtml(site) | json | safe }},
       "authors": [{
         "name": {{ site.author.name | json | safe }},
         "url": {{ site.author.path | absoluteUrl(site.url) | json | safe }}
