@@ -1,0 +1,18 @@
+---
+layout: layouts/page.njk
+title: Tags
+description: Browse meditations by theme.
+permalink: /tags/
+eleventyExcludeFromCollections: true
+---
+<p>Themes that run through the book. You can also <a href="/search/">search</a>.</p>
+
+{% if collections.tagList.length %}
+  <div class="tag-cloud">
+    {%- for tag in collections.tagList -%}
+      <a class="badge" href="/tags/{{ tag.slug }}/">{{ tag.name }} ({{ tag.count }})</a>
+    {%- endfor -%}
+  </div>
+{% else %}
+  <p class="empty-state">Tags will appear as meditations are added.</p>
+{% endif %}

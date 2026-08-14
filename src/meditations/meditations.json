@@ -1,0 +1,5 @@
+{
+  "layout": "layouts/meditation.njk",
+  "tags": ["meditation"],
+  "permalink": "/meditations/{{ page.date | getYear }}/{{ page.fileSlug | meditationSlug }}/"
+}

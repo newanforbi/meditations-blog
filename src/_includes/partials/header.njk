@@ -1,0 +1,35 @@
+<header class="site-header h-card">
+  <div class="site-header-inner">
+    <a class="p-name u-url visually-hidden" href="/" aria-hidden="true" tabindex="-1">{{ site.author.name }}</a>
+    {% if page.url == "/" %}
+      <h1 class="site-title">{% include "partials/wordmark.njk" %}</h1>
+    {% else %}
+      <p class="site-title"><a href="/">{% include "partials/wordmark.njk" %}</a></p>
+    {% endif %}
+    <div class="site-nav">
+      <nav class="primary" aria-label="Primary navigation">
+        {% for item in [
+          { href: "/meditations/", label: "Meditations" },
+          { href: "/archive/", label: "Archive" },
+          { href: "/about/", label: "About" }
+        ] %}
+          {% if page.url.startsWith(item.href) %}
+            <span class="active" aria-current="page">{{ item.label }}</span>
+          {% else %}
+            <a href="{{ item.href }}" title="{{ item.label }}">{{ item.label }}</a>
+          {% endif %}
+        {% endfor %}
+      </nav>
+      <nav class="icons" aria-label="Icon navigation">
+        <a class="search icon" href="/search/" aria-label="Search">
+          {% include "partials/icon-search.njk" %}
+          <span>Search</span>
+        </a>
+        <a class="rss icon" href="/feed.xml" aria-label="RSS feed">
+          {% include "partials/icon-rss.njk" %}
+          <span>Feed</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+</header>

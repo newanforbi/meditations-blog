@@ -1,0 +1,19 @@
+---
+permalink: /search-index.json
+eleventyExcludeFromCollections: true
+layout: false
+---
+[
+  {%- for post in collections.meditations %}
+  {
+    "title": {{ post.data.title | json | safe }},
+    "url": {{ post.url | json | safe }},
+    "date": {{ post.date | htmlDateString | json | safe }},
+    "readableDate": {{ post.date | readableDate | json | safe }},
+    "passage": {{ (post.data.passage or "") | json | safe }},
+    "scripture": {{ (post.data.scripture or "") | json | safe }},
+    "tags": {{ (post.data.tags or []) | join(" ") | json | safe }},
+    "excerpt": {{ (post.data.description or post.templateContent | excerpt(220)) | json | safe }}
+  }{% if not loop.last %},{% endif %}
+  {%- endfor %}
+]

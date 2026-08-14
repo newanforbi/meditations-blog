@@ -1,0 +1,6 @@
+<span class="visually-hidden">{{ site.wordmark }}</span>
+<span class="wordmark" aria-hidden="true">
+  {%- for item in site.wordmark | wordmarkChars -%}
+    <span class="wordmark-char{% if item.dim %} wordmark-char--dim{% endif %}">{{ item.char }}</span>
+  {%- endfor -%}
+</span>

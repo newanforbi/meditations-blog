@@ -1,0 +1,23 @@
+---
+layout: layouts/page.njk
+title: Archive
+description: Meditations arranged by year.
+permalink: /archive/
+eleventyExcludeFromCollections: true
+---
+<p>Every entry, gathered by year.</p>
+
+{% if collections.meditations.length %}
+  {%- for group in collections.meditations | groupByYear -%}
+    <section class="archive-year">
+      <h2 id="{{ group.year }}">{{ group.year }}</h2>
+      <div class="h-feed post-list">
+        {%- for item in group.items -%}
+          {% include "partials/meditation-item.njk" %}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endfor -%}
+{% else %}
+  <p class="empty-state">The archive is still empty.</p>
+{% endif %}
