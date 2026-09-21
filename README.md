@@ -112,3 +112,46 @@ Do a few a day if Google rate-limits you. Do not request the `*.vercel.app` URL.
 - Do not submit Medium, LinkedIn, or Substack as the home of the name.
 
 When a new meditation ships, you can URL-inspect that permalink and request indexing again. The sitemap already updates on each deploy.
+
+## Taking this site down
+
+Sequence matters. Google can only drop an already-indexed page after it recrawls and sees `noindex`. Blocking crawlers too early freezes stale copies in the index. Steps 1–2 are in this repo and must be live before you touch Search Console.
+
+### Phase 1 — Signal removal while the site is still live (this PR)
+
+1. Site-wide `noindex, nofollow` in `src/_includes/layouts/base.njk`. No page overrides the robots field. `vercel.json` also sends `X-Robots-Tag: noindex, nofollow` so feeds and XML get the same signal.
+2. `src/robots.njk` keeps `Allow: /` (intentionally) and drops the sitemap line. Crawling stays allowed so Google can recrawl and apply the noindex.
+
+Deploy this to production before Phase 2.
+
+### Phase 2 — Force Google to notice (manual, in Google Search Console)
+
+3. Deploy this PR to production. Confirm a live HTML page includes `<meta name="robots" content="noindex, nofollow">` and that `https://www.bookofbrendan.blog/robots.txt` has no `Sitemap:` line.
+4. URL Inspection → **Request indexing** on these, so the recrawl happens sooner:
+   - `https://www.bookofbrendan.blog/`
+   - `https://www.bookofbrendan.blog/brendan-ngwa-nforbi/`
+   - `https://www.bookofbrendan.blog/meditations/`
+   - `https://www.bookofbrendan.blog/about/`
+   - A sample meditation, for example `https://www.bookofbrendan.blog/meditations/2026/rediscovering-proverbs-at-29/`
+5. Search Console → **Removals** → **Temporarily remove URL** for the whole domain (`https://www.bookofbrendan.blog/` and, if listed separately, `https://bookofbrendan.blog/`) as an immediate (~6 month) stopgap while step 4 propagates. This is not a substitute for noindex.
+6. Watch **Indexing → Pages** until URLs move to **Excluded by ‘noindex’ tag**. That can take days to weeks.
+
+### Phase 3 — Lock it down and tear down hosting (manual)
+
+7. Once Search Console shows the pages excluded, flip `src/robots.njk` to `Disallow: /` and redeploy:
+
+```
+User-agent: *
+Disallow: /
+
+User-agent: Googlebot
+Disallow: /
+```
+
+8. Optionally serve **410 Gone** for a week or two — stronger than a plain 404. In `vercel.json` that is a rewrite or status override for `/:path*` after you no longer need the live book.
+9. In Vercel: remove `www.bookofbrendan.blog` and `bookofbrendan.blog` from the project, then delete or stop the project.
+10. DNS: this domain uses Vercel nameservers (`ns1.vercel-dns.com`, `ns2.vercel-dns.com`). Delete the A/CNAME records that point at Vercel in **Vercel DNS**, then at the registrar let the domain lapse or change nameservers if you want to keep the name pointed elsewhere.
+11. In Search Console, remove the old **Sitemaps** entries. This site does not publish `sameAs` profile links. Copies on Substack, LinkedIn, or Medium are independent URLs and will not disappear with this domain.
+12. Weeks later, check `site:www.bookofbrendan.blog` and `site:bookofbrendan.blog` in Google (expect no results) and confirm the domain no longer resolves.
+
+Do not run steps 7–10 until step 6 is true. Do not turn on Vercel Deployment Protection as a shortcut for de-indexing — a login wall can freeze old snippets instead of clearing them.
