@@ -14,11 +14,11 @@ layout: false
     { url: "/tags/", changefreq: "weekly", priority: "0.5" },
     { url: "/colophon/", changefreq: "yearly", priority: "0.3" }
   ] -%}
-  {%- set latest = collections.meditations[0].date if collections.meditations.length else none -%}
+  {%- set lastmod = buildDate | isoDate -%}
   {%- for item in core %}
   <url>
     <loc>{{ item.url | absoluteUrl(site.url) }}</loc>
-    {%- if latest %}<lastmod>{{ latest | isoDate }}</lastmod>{%- endif %}
+    <lastmod>{{ lastmod }}</lastmod>
     <changefreq>{{ item.changefreq }}</changefreq>
     <priority>{{ item.priority }}</priority>
   </url>
@@ -26,7 +26,7 @@ layout: false
   {%- for post in collections.meditations %}
   <url>
     <loc>{{ post.url | absoluteUrl(site.url) }}</loc>
-    <lastmod>{{ post.date | isoDate }}</lastmod>
+    <lastmod>{{ lastmod }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -34,7 +34,7 @@ layout: false
   {%- for tag in collections.tagList %}
   <url>
     <loc>{{ ("/tags/" + tag.slug + "/") | absoluteUrl(site.url) }}</loc>
-    {%- if latest %}<lastmod>{{ latest | isoDate }}</lastmod>{%- endif %}
+    <lastmod>{{ lastmod }}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
