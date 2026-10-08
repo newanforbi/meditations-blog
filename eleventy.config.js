@@ -148,6 +148,7 @@ export default function (eleventyConfig) {
     (tags || []).filter((tag) => tag !== MEDITATION_TAG),
   );
 
+  eleventyConfig.addGlobalData("buildDate", () => new Date());
   eleventyConfig.addShortcode("year", () => new Date().getUTCFullYear());
 
   eleventyConfig.setServerOptions({

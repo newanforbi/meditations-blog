@@ -126,6 +126,8 @@ Deploy this to production before Phase 2.
 
 ### Phase 2 — Force Google to notice (manual, in Google Search Console)
 
+Every sitemap URL now gets `<lastmod>` set to the Eleventy build date, so Google has a recrawl signal after the noindex change. The URL list is unchanged. robots.txt still has no Sitemap line.
+
 3. Deploy this PR to production. Confirm a live HTML page includes `<meta name="robots" content="noindex, nofollow">` and that `https://www.bookofbrendan.blog/robots.txt` has no `Sitemap:` line.
 4. URL Inspection → **Request indexing** on these, so the recrawl happens sooner:
    - `https://www.bookofbrendan.blog/`
